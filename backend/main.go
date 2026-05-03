@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -73,13 +75,17 @@ type AssignBarberRequest struct {
 }
 
 // Booking ID counter for generation
-var bookingIDCounter int = 1
+// Note: This is now only used as a prefix. Actual ID is generated with random suffix.
 
-// generateBookingID generates a new booking ID
+// generateBookingID generates a new unique booking ID using random bytes
 func generateBookingID() string {
-	id := fmt.Sprintf("BOOK-%d", bookingIDCounter)
-	bookingIDCounter++
-	return id
+	// Generate 8 random bytes for uniqueness
+	randomBytes := make([]byte, 8)
+	rand.Read(randomBytes)
+	randomPart := hex.EncodeToString(randomBytes)
+	
+	// Use timestamp + random for ID: BOOK-<timestamp>-<random>
+	return fmt.Sprintf("BOOK-%d-%s", time.Now().UnixMilli(), randomPart)
 }
 
 func parseBookingDate(value string) (time.Time, error) {

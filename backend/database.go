@@ -117,15 +117,19 @@ func CreateBooking(booking *Booking) error {
 	if err != nil {
 		// Ignore duplicate key errors (HTTP 409) caused by duplicate Stripe webhooks
 		if strings.Contains(err.Error(), "409") {
-			fmt.Printf("Webhook Duplicate Ignored: Booking already exists for %s\n", booking.ID)
+			fmt.Printf("Mock DB: Webhook Duplicate Ignored: Booking already exists for %s\n", booking.ID)
 			return nil
 		}
 		if err.Error() == "mock db: operation skipped" {
-			fmt.Printf("Mock DB: Created booking for %s\n", booking.CustomerName)
+			fmt.Printf("Mock DB: Created booking %s for %s on %s at %s (Status: %s)\n", 
+				booking.ID, booking.CustomerName, booking.Date, booking.Time, booking.Status)
 			return nil
 		}
+		fmt.Printf("✗ Supabase error creating booking: %v\n", err)
 		return err
 	}
+	fmt.Printf("✓ Supabase: Saved booking %s for %s on %s at %s (Status: %s)\n", 
+		booking.ID, booking.CustomerName, booking.Date, booking.Time, booking.Status)
 	return nil
 }
 

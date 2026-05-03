@@ -120,13 +120,13 @@ func handleCreateCheckoutSession(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := CreateBooking(pendingBooking); err != nil {
-		log.Printf("  Error creating pending booking: %v", err)
+		log.Printf("  ✗ Error creating pending booking: %v", err)
 		sendJSONError(w, "Failed to reserve slot", http.StatusInternalServerError)
 		return
 	}
 
-	log.Printf("✓ Pending booking created: %s for %s on %s at %s", 
-		req.ServiceName, req.CustomerName, req.Date, req.Time)
+	log.Printf("✓ Pending booking created: ID=%s, %s for %s on %s at %s (Status: %s)", 
+		pendingBooking.ID, req.ServiceName, req.CustomerName, req.Date, req.Time, pendingBooking.Status)
 
 	// Build Checkout Session params
 	params := &stripe.CheckoutSessionParams{
