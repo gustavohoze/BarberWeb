@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -522,7 +523,11 @@ func main() {
 	handler := corsMiddleware(mux)
 
 	// Start server
-	port := ":8080"
+	portEnv := os.Getenv("PORT")
+	if portEnv == "" {
+		portEnv = "8080"
+	}
+	port := ":" + portEnv
 	fmt.Printf("Master Barber API Server running on http://localhost%s\n", port)
 	fmt.Printf("Demo Login: admin@masterbarber.com / password123\n")
 	fmt.Printf("Connected to Supabase PostgreSQL database\n")
