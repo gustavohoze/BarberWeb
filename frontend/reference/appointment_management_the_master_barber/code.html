@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Appointments - The Master Barber</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS & Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#d4af37",
+                        "secondary-container": "#474746",
+                        "on-surface-variant": "#d0c5af",
+                        "on-secondary": "#313030",
+                        "outline": "#99907c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-dim": "#121414",
+                        "primary": "#f2ca50",
+                        "on-primary-fixed": "#241a00",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#313030",
+                        "surface-tint": "#e9c349",
+                        "on-tertiary-container": "#454545",
+                        "surface": "#121414",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474746",
+                        "inverse-surface": "#e2e2e2",
+                        "on-secondary-container": "#b7b5b4",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "surface-container-high": "#282a2b",
+                        "on-surface": "#e2e2e2",
+                        "tertiary": "#d0cecd",
+                        "surface-bright": "#37393a",
+                        "inverse-on-surface": "#2f3131",
+                        "outline-variant": "#4d4635",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#e9c349",
+                        "surface-variant": "#333535",
+                        "surface-container-lowest": "#0c0f0f",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container": "#1e2020",
+                        "on-primary-fixed-variant": "#574500",
+                        "secondary": "#c8c6c5",
+                        "primary-fixed": "#ffe088",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-container": "#b5b2b2",
+                        "background": "#121414",
+                        "on-error": "#690005",
+                        "on-primary-container": "#554300",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "inverse-primary": "#735c00",
+                        "surface-container-highest": "#333535",
+                        "surface-container-low": "#1a1c1c",
+                        "on-background": "#e2e2e2",
+                        "on-primary": "#3c2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "section-gap": "80px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "h3": ["Noto Serif"],
+                        "button": ["Manrope"],
+                        "h1": ["Noto Serif"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "button": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for a sleeker look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121414; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333535; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #474746; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- SideNavBar Component -->
+<nav class="bg-neutral-950 dark:bg-[#1A1A1A] font-serif uppercase text-xs tracking-widest border-r border-neutral-800 dark:border-[#2D2D2D] fixed left-0 top-0 h-full w-64 flex flex-col z-50">
+<!-- Header -->
+<div class="px-6 py-8 border-b border-neutral-800 dark:border-[#2D2D2D] flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container mb-4 overflow-hidden border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" style="font-size: 32px;">cut</span>
+</div>
+<h1 class="text-lg font-black text-yellow-600 dark:text-[#D4AF37] mb-1">PRECISION</h1>
+<p class="text-neutral-400 dark:text-neutral-500 font-label-caps text-label-caps">MASTER BARBER</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-6 flex flex-col gap-2">
+<!-- Dashboard -->
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Appointments (Active) -->
+<a class="flex items-center gap-4 px-6 py-4 text-yellow-600 dark:text-[#D4AF37] border-l-2 border-yellow-600 bg-neutral-900/50 scale-95 duration-150 transition-all" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Appointments</span>
+</a>
+<!-- Services -->
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">content_cut</span>
+<span>Services</span>
+</a>
+<!-- Staff -->
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Staff</span>
+</a>
+<!-- Customers -->
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Customers</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="p-6 border-t border-neutral-800 dark:border-[#2D2D2D]">
+<button class="w-full bg-primary-container text-on-primary-container font-button text-button py-4 rounded-none hover:opacity-90 transition-opacity flex justify-center items-center gap-2 uppercase tracking-widest border border-primary-container">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                BOOKING VIEW
+            </button>
+</div>
+</nav>
+<!-- Main Canvas Wrapper -->
+<div class="ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="bg-neutral-950 dark:bg-[#0A0A0A] font-serif uppercase tracking-widest text-sm w-full top-0 rounded-none border-b border-neutral-800 dark:border-[#2D2D2D] flex justify-between items-center px-6 py-4 z-40 sticky">
+<div class="flex items-center">
+<span class="text-xl font-bold text-yellow-600 dark:text-[#D4AF37] tracking-tighter">BARBER ADMIN</span>
+</div>
+<div class="flex items-center gap-6 text-neutral-400 dark:text-neutral-500">
+<!-- Search (on_right) -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container border border-outline-variant rounded-none pl-10 pr-4 py-2 font-body-md text-sm text-on-surface focus:border-primary focus:ring-0 w-64 transition-colors placeholder:text-outline-variant" placeholder="Search..." type="text"/>
+</div>
+<button class="hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant overflow-hidden cursor-pointer hover:border-primary transition-colors">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A striking black and white close-up portrait of a sharply dressed modern master barber. He looks confident, exuding an aura of precision and high-end craftsmanship. Soft, cinematic studio lighting highlights the texture of his neatly trimmed beard and dark attire against a purely black matte background. The mood is exclusive, refined, and distinctly masculine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBac-gSYz9A2xuJum64Sn-D04ybvKh2ZmRjb2t3HUC745z82IzX8ltvVHH_tezM6G0ccGGFBj7BE24lPWv4Gd3ERFSU7rdBcvJPa_Jf3NS1VZ2bcmRqPgUD82SyQg5Pz6y5ywvl0ANxUMCUdRGYoJkcVnYNEu-6dk3qHvX0d_ShvwcPJNzP70qD5ABp4wKYMu-Y_dMmQFuuHwHM-eYqAmMmhKWf0bu95zJaunDQ-rP0Ydu-3ZtuVn6TkIauW5vyn0em8w2b1W0gyPkX"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-margin-desktop flex flex-col gap-section-gap">
+<!-- Header & Filters Section -->
+<section class="flex flex-col gap-stack-lg">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-stack-md">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-2">Schedule Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage upcoming bookings, staff assignments, and client details.</p>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap gap-4 w-full md:w-auto">
+<div class="flex flex-col gap-1 w-full sm:w-auto">
+<label class="font-label-caps text-label-caps text-outline uppercase">Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">event</span>
+<input class="bg-surface border border-outline-variant rounded-none pl-10 pr-4 py-2 font-body-md text-on-surface focus:border-primary focus:ring-0 focus:outline-none transition-colors w-full sm:w-48 appearance-none color-scheme-dark" type="date" value="2023-10-27"/>
+</div>
+</div>
+<div class="flex flex-col gap-1 w-full sm:w-auto">
+<label class="font-label-caps text-label-caps text-outline uppercase">Barber</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">person</span>
+<select class="bg-surface border border-outline-variant rounded-none pl-10 pr-10 py-2 font-body-md text-on-surface focus:border-primary focus:ring-0 focus:outline-none transition-colors w-full sm:w-48 appearance-none">
+<option value="all">All Staff</option>
+<option value="marcus">Marcus T.</option>
+<option value="elias">Elias R.</option>
+<option value="julian">Julian W.</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-sm pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Table Section -->
+<section class="bg-surface-container border border-outline-variant rounded-none overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Time / Date</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Client</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Service</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Barber</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-button text-button text-on-surface">09:00 AM</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">OCT 27, 2023</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-outline-variant flex items-center justify-center text-on-surface font-button text-sm uppercase">JD</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold">James Davies</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">NEW CLIENT</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface">Executive Cut</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">45 MIN • $65</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-on-surface-variant">Marcus T.</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2 py-1 border border-primary text-primary font-label-caps text-label-caps tracking-widest rounded-none">CONFIRMED</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary flex items-center justify-center transition-colors" title="Reschedule">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</button>
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-error hover:border-error flex items-center justify-center transition-colors" title="Cancel">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-button text-button text-on-surface">10:15 AM</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">OCT 27, 2023</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-outline-variant flex items-center justify-center text-on-surface font-button text-sm uppercase">AR</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold">Alex Rivera</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface">Beard Sculpting</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">30 MIN • $40</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-on-surface-variant">Elias R.</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2 py-1 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps tracking-widest rounded-none">PENDING</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary flex items-center justify-center transition-colors" title="Approve">
+<span class="material-symbols-outlined text-sm">check</span>
+</button>
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary flex items-center justify-center transition-colors" title="Reschedule">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</button>
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-error hover:border-error flex items-center justify-center transition-colors" title="Cancel">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-button text-button text-on-surface">11:00 AM</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">OCT 27, 2023</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-outline-variant flex items-center justify-center text-on-surface font-button text-sm uppercase">TC</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold">Thomas Chen</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">VIP</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface">Full Service Razor</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">60 MIN • $85</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-on-surface-variant">Marcus T.</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2 py-1 border border-primary text-primary font-label-caps text-label-caps tracking-widest rounded-none">CONFIRMED</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary flex items-center justify-center transition-colors" title="Reschedule">
+<span class="material-symbols-outlined text-sm">schedule</span>
+</button>
+<button class="w-8 h-8 rounded-none border border-outline-variant text-on-surface-variant hover:text-error hover:border-error flex items-center justify-center transition-colors" title="Cancel">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-high transition-colors group opacity-60">
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-button text-button text-on-surface line-through">01:30 PM</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">OCT 27, 2023</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-outline-variant flex items-center justify-center text-on-surface font-button text-sm uppercase">SW</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold">Samuel Wright</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6">
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface">Standard Cut</span>
+<span class="font-label-caps text-label-caps text-outline mt-1">45 MIN • $55</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-body-md text-on-surface-variant">Julian W.</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2 py-1 border border-error text-error font-label-caps text-label-caps tracking-widest rounded-none">CANCELLED</span>
+</td>
+<td class="py-4 px-6 text-right">
+<!-- No actions for cancelled -->
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer -->
+<div class="border-t border-outline-variant p-4 flex items-center justify-between bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Showing 1-4 of 12</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container-high hover:text-white transition-colors disabled:opacity-50" disabled="">PREV</button>
+<button class="px-3 py-1 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container-high hover:text-white transition-colors">NEXT</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

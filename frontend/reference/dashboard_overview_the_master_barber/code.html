@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Master Barber - Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#d4af37",
+                        "secondary-container": "#474746",
+                        "on-surface-variant": "#d0c5af",
+                        "on-secondary": "#313030",
+                        "outline": "#99907c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-dim": "#121414",
+                        "primary": "#f2ca50",
+                        "on-primary-fixed": "#241a00",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#313030",
+                        "surface-tint": "#e9c349",
+                        "on-tertiary-container": "#454545",
+                        "surface": "#121414",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474746",
+                        "inverse-surface": "#e2e2e2",
+                        "on-secondary-container": "#b7b5b4",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "surface-container-high": "#282a2b",
+                        "on-surface": "#e2e2e2",
+                        "tertiary": "#d0cecd",
+                        "surface-bright": "#37393a",
+                        "inverse-on-surface": "#2f3131",
+                        "outline-variant": "#4d4635",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#e9c349",
+                        "surface-variant": "#333535",
+                        "surface-container-lowest": "#0c0f0f",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container": "#1e2020",
+                        "on-primary-fixed-variant": "#574500",
+                        "secondary": "#c8c6c5",
+                        "primary-fixed": "#ffe088",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-container": "#b5b2b2",
+                        "background": "#121414",
+                        "on-error": "#690005",
+                        "on-primary-container": "#554300",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "inverse-primary": "#735c00",
+                        "surface-container-highest": "#333535",
+                        "surface-container-low": "#1a1c1c",
+                        "on-background": "#e2e2e2",
+                        "on-primary": "#3c2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "section-gap": "80px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "h3": ["Noto Serif"],
+                        "button": ["Manrope"],
+                        "h1": ["Noto Serif"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "button": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md text-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-64 flex flex-col z-50 bg-neutral-950 dark:bg-[#1A1A1A] docked left-0 h-full w-64 rounded-none border-r border-neutral-800 dark:border-[#2D2D2D] flat no shadows">
+<div class="p-6 border-b border-neutral-800 dark:border-[#2D2D2D] flex flex-col items-center">
+<img alt="Shop Logo" class="w-16 h-16 rounded-full mb-4 object-cover border-2 border-primary-container" data-alt="Close up of a classic barber pole or high quality steel straight razor in a dark moody barbershop setting. High contrast, cinematic lighting, gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaVDymFf1sC3ZY9S_uwHK9sTZj4thTRTfqgzABGbQuu_aT19Y7gp_Sq_6per0Yud84byyz4R0aZenLT-gsNFVwKiLY1gr6wVuY3GJMozkOvM3MVJD5KUHwYAuw0xzB7CNOsB0v5G9ZIAwcAXHVee-ftYgNi-hZHUHmEa2ULCahxuSEwsuE7pIgRj6WLm5p4PZZLZpz0wCzYjrMcxXOY0CAaukTyIuKPqGbfmuecrste3a5NWlddQYdXAiksXTFMP8L9OIJq4JXSMZz"/>
+<h1 class="text-lg font-black text-yellow-600 dark:text-[#D4AF37] font-h3 text-h3 tracking-tighter">PRECISION</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1 uppercase">MASTER BARBER</p>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-4 text-yellow-600 dark:text-[#D4AF37] border-l-2 border-yellow-600 bg-neutral-900/50 hover:bg-neutral-900 hover:text-white transition-all duration-200 Active: scale-95 duration-150 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                Appointments
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">content_cut</span>
+                Services
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">group</span>
+                Staff
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">person</span>
+                Customers
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Analytics
+            </a>
+</div>
+<div class="p-6 border-t border-neutral-800 dark:border-[#2D2D2D]">
+<button class="w-full bg-primary-container text-on-primary-container font-button text-button py-3 uppercase tracking-widest rounded-none hover:opacity-90 transition-opacity">
+                BOOKING VIEW
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col ml-64 w-full">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 z-50 bg-neutral-950 dark:bg-[#0A0A0A] docked full-width top-0 rounded-none border-b border-neutral-800 dark:border-[#2D2D2D] flat no shadows sticky top-0">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold text-yellow-600 dark:text-[#D4AF37] tracking-tighter font-h3 text-h3">BARBER ADMIN</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container text-on-surface border border-outline-variant pl-10 pr-4 py-2 text-sm focus:border-primary-container focus:outline-none focus:ring-0 transition-colors w-64 rounded-none placeholder-on-surface-variant font-body-md text-body-md" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-neutral-400 dark:text-neutral-500 hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-neutral-400 dark:text-neutral-500 hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Admin Profile" class="w-8 h-8 rounded-full border border-neutral-800 dark:border-[#2D2D2D] object-cover cursor-pointer" data-alt="Portrait of a sophisticated master barber with a well-groomed beard, wearing a dark apron in a moody, high-end barbershop. High contrast black and white style with subtle gold highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmWw6AwZEutcp4jU_0BfmjbxKlh-tbihGhy8vf9fBSLy4uAIEzWY4DHpxCKVfUBXnwTwE_Jwdhn8CYDsMacAy1XEl5unJg1Z95PUN3pt3Z0tD06XAU1H2xH58JBz4G_88wtRXQ2he9TZ-UodzZB9j6oI7mU72NqvZ_w7pJ5K1XFGAlqRYeClZNtElsjqVc1fK6JohFEDlqgIY8wsKZKmwPn7JzZA0OGI97sPuu37yNcETW10Zp0CD2zYAi4uH0a8Zscn_EONH1x433"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-gutter bg-background overflow-y-auto">
+<div class="max-w-container-max mx-auto space-y-section-gap">
+<!-- Page Header -->
+<div>
+<h2 class="font-h2 text-h2 text-on-surface">Dashboard Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Welcome back, Master Barber. Here's today's precision report.</p>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Metric 1 -->
+<div class="bg-surface-container-low p-6 border border-surface-container-highest hover:border-primary-container/50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Total Bookings</span>
+<span class="material-symbols-outlined text-primary-container">calendar_month</span>
+</div>
+<div class="font-h1 text-h1 text-on-surface">124</div>
+<div class="mt-2 text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-green-500">trending_up</span>
+<span class="text-green-500">+12%</span> vs last week
+                        </div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-low p-6 border border-surface-container-highest hover:border-primary-container/50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Revenue</span>
+<span class="material-symbols-outlined text-primary-container">payments</span>
+</div>
+<div class="font-h1 text-h1 text-on-surface">$4,250</div>
+<div class="mt-2 text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-green-500">trending_up</span>
+<span class="text-green-500">+8.5%</span> vs last week
+                        </div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-low p-6 border border-surface-container-highest hover:border-primary-container/50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">New Customers</span>
+<span class="material-symbols-outlined text-primary-container">person_add</span>
+</div>
+<div class="font-h1 text-h1 text-on-surface">18</div>
+<div class="mt-2 text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-on-surface-variant">trending_flat</span>
+<span>0%</span> vs last week
+                        </div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-low p-6 border border-surface-container-highest hover:border-primary-container/50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Top Service</span>
+<span class="material-symbols-outlined text-primary-container">content_cut</span>
+</div>
+<div class="font-h3 text-h3 text-on-surface mt-2 truncate">Executive Fade</div>
+<div class="mt-2 text-sm text-on-surface-variant">42 bookings this week</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Line Chart Area (Placeholder styling) -->
+<div class="lg:col-span-2 bg-surface-container-low p-6 border border-surface-container-highest">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-h3 text-on-surface">Revenue Over Time</h3>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Abstract Line Chart Representation -->
+<div class="h-64 relative w-full flex items-end gap-2 border-l border-b border-surface-container-highest pt-4 pr-4">
+<div class="w-full h-full absolute inset-0 bg-gradient-to-t from-primary-container/5 to-transparent pointer-events-none"></div>
+<!-- Mock Data Points -->
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[40%] relative group cursor-pointer">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface p-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity border border-surface-container-highest">$320</div>
+</div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[55%] relative group cursor-pointer"></div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[35%] relative group cursor-pointer"></div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[70%] relative group cursor-pointer"></div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[85%] relative group cursor-pointer"></div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[60%] relative group cursor-pointer"></div>
+<div class="flex-1 bg-primary-container/20 hover:bg-primary-container/40 transition-colors border-t-2 border-primary-container h-[90%] relative group cursor-pointer"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-on-surface-variant font-label-caps">
+<span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+</div>
+</div>
+<!-- Bar Chart Area (Placeholder styling) -->
+<div class="bg-surface-container-low p-6 border border-surface-container-highest">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-h3 text-on-surface">Peak Hours</h3>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Abstract Bar Chart Representation -->
+<div class="h-64 flex items-end gap-3 border-b border-surface-container-highest pb-2">
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[20%]"></div>
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[40%]"></div>
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[80%] bg-primary-container/80"></div>
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[100%] bg-primary-container"></div>
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[60%]"></div>
+<div class="flex-1 bg-surface-container-highest hover:bg-primary-container transition-colors h-[30%]"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs text-on-surface-variant font-label-caps">
+<span>10A</span><span>12P</span><span>2P</span><span>4P</span><span>6P</span><span>8P</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

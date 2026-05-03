@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Management - Master Barber</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#d4af37",
+                        "secondary-container": "#474746",
+                        "on-surface-variant": "#d0c5af",
+                        "on-secondary": "#313030",
+                        "outline": "#99907c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-dim": "#121414",
+                        "primary": "#f2ca50",
+                        "on-primary-fixed": "#241a00",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#313030",
+                        "surface-tint": "#e9c349",
+                        "on-tertiary-container": "#454545",
+                        "surface": "#121414",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474746",
+                        "inverse-surface": "#e2e2e2",
+                        "on-secondary-container": "#b7b5b4",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "surface-container-high": "#282a2b",
+                        "on-surface": "#e2e2e2",
+                        "tertiary": "#d0cecd",
+                        "surface-bright": "#37393a",
+                        "inverse-on-surface": "#2f3131",
+                        "outline-variant": "#4d4635",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#e9c349",
+                        "surface-variant": "#333535",
+                        "surface-container-lowest": "#0c0f0f",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container": "#1e2020",
+                        "on-primary-fixed-variant": "#574500",
+                        "secondary": "#c8c6c5",
+                        "primary-fixed": "#ffe088",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-container": "#b5b2b2",
+                        "background": "#121414",
+                        "on-error": "#690005",
+                        "on-primary-container": "#554300",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "inverse-primary": "#735c00",
+                        "surface-container-highest": "#333535",
+                        "surface-container-low": "#1a1c1c",
+                        "on-background": "#e2e2e2",
+                        "on-primary": "#3c2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "section-gap": "80px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "h3": ["Noto Serif"],
+                        "button": ["Manrope"],
+                        "h1": ["Noto Serif"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "button": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Component -->
+<nav class="bg-neutral-950 dark:bg-[#1A1A1A] docked left-0 h-full w-64 rounded-none border-r border-neutral-800 dark:border-[#2D2D2D] flat no shadows fixed left-0 top-0 h-full w-64 flex flex-col z-50">
+<div class="px-6 py-stack-lg border-b border-neutral-800 dark:border-[#2D2D2D] flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container overflow-hidden mb-stack-md border-2 border-[#D4AF37]">
+<img alt="Shop Logo" class="w-full h-full object-cover" data-alt="A high-contrast, black and white close-up shot of a classic straight razor resting on a pristine leather strop. The lighting highlights the polished steel blade against the dark, textured leather, creating a premium, minimalist aesthetic. Deep shadows surround the focal point, enhancing the dramatic, masculine mood of a high-end traditional barbershop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgBA9vRt0HTy_U05-v4Ltfw9InAlcoIARtcDL2olzkgitaKxtRkpadCtUYJW1rJqHsAj0aYtz1aOHlQRF_fFi_k4Litcaj-79iOvSuK2TlxPoZ2ZFC7dBi87O-r8O2Mb2L-G4MkIkPhfBzLRtLvDtQVLw4u7OwpLxfSjqdSHVMsmh29k0dCTmzFkKfCDoOUeGJDogBrvCiQtJMvdEUZwoqiczvRvsLC8z3UQaUKlsqdbsW9dqZ_WX9kf3tEPM96PnJ51r8a8DFRwaU"/>
+</div>
+<h2 class="text-lg font-black text-yellow-600 dark:text-[#D4AF37] font-h3 tracking-tighter uppercase">PRECISION</h2>
+<p class="text-neutral-400 dark:text-neutral-500 font-label-caps text-label-caps mt-unit">MASTER BARBER</p>
+</div>
+<div class="flex-1 overflow-y-auto py-stack-md">
+<ul class="flex flex-col font-serif uppercase text-xs tracking-widest">
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-yellow-600 transition-colors">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-yellow-600 transition-colors">calendar_month</span>
+<span>Appointments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-yellow-600 transition-colors">content_cut</span>
+<span>Services</span>
+</a>
+</li>
+<!-- Active Item -->
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-yellow-600 dark:text-[#D4AF37] border-l-2 border-yellow-600 bg-neutral-900/50 hover:bg-neutral-900 hover:text-white transition-all duration-200 Active: scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>Staff</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-yellow-600 transition-colors">person</span>
+<span>Customers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-900 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-yellow-600 transition-colors">analytics</span>
+<span>Analytics</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="p-6 border-t border-neutral-800 dark:border-[#2D2D2D]">
+<button class="w-full bg-primary-container text-on-primary-fixed font-button text-button uppercase py-3 rounded-none hover:bg-white transition-colors duration-300">
+                BOOKING VIEW
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0 ml-64">
+<!-- TopAppBar Component -->
+<header class="bg-neutral-950 dark:bg-[#0A0A0A] docked full-width top-0 rounded-none border-b border-neutral-800 dark:border-[#2D2D2D] flat no shadows flex justify-between items-center w-full px-6 py-4 z-40 sticky top-0">
+<div class="flex items-center">
+<span class="text-xl font-bold text-yellow-600 dark:text-[#D4AF37] tracking-tighter uppercase">BARBER ADMIN</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar (on_right logic implied by positioning) -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-[18px]">search</span>
+<input class="bg-surface-container border border-outline-variant rounded-none py-2 pl-10 pr-4 text-on-surface font-body-md text-sm focus:border-primary-container focus:outline-none focus:ring-0 w-64 placeholder:text-neutral-600 transition-colors" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-neutral-400 dark:text-neutral-500 hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-neutral-400 dark:text-neutral-500 hover:text-yellow-500 dark:hover:text-[#D4AF37] transition-colors duration-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A monochromatic portrait of a sophisticated man in a dark suit, positioned against a seamless deep black background. The lighting is harsh and directional, emphasizing the sharp jawline and textured hair. The overall tone is authoritative, elegant, and perfectly aligned with a luxury grooming brand's aesthetic. High contrast, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuTa9TyX5j080GOfTKeaMMB-sKZp-oNaSPBq7BHoJ8PCaisPuZxcAkoN1uVoO4tc_0Wg6s4e_4NY6Iejh0WxopwJvMdHdi85QoKFWc1VAvyxt5aatQludj9VrX_UIZcccPUEaTGXFwXC00Faqm3hxsITODwYjGvyFBAe67VgHt4a7PJVBqpKjEiHFnYXzmzmkflDuNS0dEP21gF0ex9MCZeltD1slJUBUugnQcS3H-qYepra_s1VUwo7IQx_7uqSlXu7M1nxsyz3kN"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-desktop bg-background overflow-y-auto">
+<div class="max-w-container-max mx-auto">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-section-gap border-b border-surface-container-high pb-stack-md">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-unit uppercase tracking-tight">Staff Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee barber profiles, specialties, and schedules.</p>
+</div>
+<button class="mt-stack-md md:mt-0 bg-primary-container text-on-primary-fixed font-button text-button py-3 px-6 rounded-none flex items-center gap-2 hover:bg-white transition-colors duration-300">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        ADD NEW STAFF
+                    </button>
+</div>
+<!-- Staff Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-none p-stack-lg flex flex-col items-center text-center group hover:border-[#2D2D2D] transition-colors duration-300">
+<div class="relative w-24 h-24 mb-stack-md">
+<img alt="Marcus Vance" class="w-full h-full rounded-full object-cover border-2 border-surface-container-low group-hover:border-primary-container transition-colors duration-300" data-alt="A striking portrait of a master barber with intricate tattoos and a precise fade haircut. He is captured in a moody, low-light environment with a single soft spotlight highlighting his facial features. The background is a stark, absolute black void, creating a highly dramatic, high-contrast visual. The image exudes intense focus, modern masculinity, and top-tier craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9zgqkvlB7qYm2BuC_ZYfsW9Bifujm8uKVymirvZVBjPFe0Ep1N4zjKhNKwDob9szDxyHcFwpEiNoY8T-rINvUmA2VzZGyFemITtPSCKDndGoGY7d8yrhmpEOyixtRkknLkY04_ekwfIz-qJsQXDXq46QPW-GI1YNo7pCmLvrQX7liLrGbhnLSaWBlpW-3QcLicpd9A1uqQFP68I7Dbk3piE06O5k-S-USh1WJ1j0z2SdwAEWsKSe7PTn7ydqXvJeY53R6GR8zG2sA"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-surface-container-low rounded-full"></span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">Marcus Vance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-sm">Master Barber • Skin Fades</p>
+<div class="inline-block border border-outline px-3 py-1 rounded-none mb-stack-lg">
+<span class="font-label-caps text-label-caps text-on-surface tracking-widest uppercase">Available Now</span>
+</div>
+<div class="w-full flex gap-stack-sm mt-auto">
+<button class="flex-1 bg-transparent border border-outline font-button text-button text-on-surface py-2 rounded-none hover:border-primary-container hover:text-primary-container transition-colors duration-300">
+                                EDIT SCHEDULE
+                            </button>
+<button class="flex-1 bg-surface-container border border-transparent font-button text-button text-on-surface py-2 rounded-none hover:bg-surface-container-high transition-colors duration-300">
+                                MANAGE
+                            </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-none p-stack-lg flex flex-col items-center text-center group hover:border-[#2D2D2D] transition-colors duration-300">
+<div class="relative w-24 h-24 mb-stack-md">
+<img alt="Elias Thorne" class="w-full h-full rounded-full object-cover grayscale border-2 border-surface-container-low group-hover:border-primary-container transition-colors duration-300" data-alt="A distinguished older gentleman with a perfectly groomed white beard and sharp attire, photographed in pure black and white. The lighting is editorial, creating deep, dramatic shadows on the textured charcoal background. His expression is serious and experienced, reflecting years of dedication to the traditional barbering craft. The visual tone is cinematic, luxurious, and timeless." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4QM-dwVajd9mk8a-xFt21dH3tLQ9QuvCptR3sIGQHvEIh3Z-0Tj05TgYHpxIJhplYu5PYjOp-r8HHvzKa3G1qjTVMIvdFBFVukumJfOL-0aAumJmvnT-yvhFt4Q6P0mBj3AiPUCA60W6EZz5bWVSVbveKF_yPKTHmEbHmISNy82U_ohEm53ivgMe0l2SUfSlG-W0HsQgsGtgcDwVxQqbDc_cH5e33KGGqSeSrmEyT3Voc1hg7JDCalHSXUToTD2PQEFiKTSqArqa8"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-red-500 border-2 border-surface-container-low rounded-full"></span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">Elias Thorne</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-sm">Senior Stylist • Scissor Work</p>
+<div class="inline-block border border-outline-variant px-3 py-1 rounded-none mb-stack-lg opacity-70">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">In Service</span>
+</div>
+<div class="w-full flex gap-stack-sm mt-auto">
+<button class="flex-1 bg-transparent border border-outline font-button text-button text-on-surface py-2 rounded-none hover:border-primary-container hover:text-primary-container transition-colors duration-300">
+                                EDIT SCHEDULE
+                            </button>
+<button class="flex-1 bg-surface-container border border-transparent font-button text-button text-on-surface py-2 rounded-none hover:bg-surface-container-high transition-colors duration-300">
+                                MANAGE
+                            </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-none p-stack-lg flex flex-col items-center text-center group hover:border-[#2D2D2D] transition-colors duration-300">
+<div class="relative w-24 h-24 mb-stack-md">
+<img alt="Julian Reed" class="w-full h-full rounded-full object-cover border-2 border-surface-container-low group-hover:border-primary-container transition-colors duration-300" data-alt="A close-up, desaturated portrait of a young, stylish barber in a dimly lit, high-end shop. He wears a classic black smock with minimal details. The lighting catches the metallic glint of the clippers in the blurred foreground, while his face remains in sharp, contrasting focus against a matte black background. The mood is modern, precise, and effortlessly cool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDycWcHjYNAybSl1_MTOCE1DZOTqD2g9HupJRAC8qxGO1D4ehWsPh4TcFZYpX2PUk9Uv1K1tnDWZqORmvYdiTbrTld4HiGROVvWcqwqdYKV9jrZPcl546xqOhr0QxVNVqHxNVReL5gpHgtXay4f8mlCZJe9DyhxMcZ5tk6TnbN2_5LLoqukG_01ZPC611ou80RQ4HD37zACNWKQnGFivYU9wB29Xm4fbI3B7AgQ5xTi_Q1GliaDW8eGxzZ4pLCfvwFLfS2nVH973G78"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-surface-variant border-2 border-surface-container-low rounded-full"></span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">Julian Reed</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-sm">Barber • Beard Sculpting</p>
+<div class="inline-block border border-outline-variant px-3 py-1 rounded-none mb-stack-lg opacity-50">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Off Duty</span>
+</div>
+<div class="w-full flex gap-stack-sm mt-auto">
+<button class="flex-1 bg-transparent border border-outline font-button text-button text-on-surface py-2 rounded-none hover:border-primary-container hover:text-primary-container transition-colors duration-300">
+                                EDIT SCHEDULE
+                            </button>
+<button class="flex-1 bg-surface-container border border-transparent font-button text-button text-on-surface py-2 rounded-none hover:bg-surface-container-high transition-colors duration-300">
+                                MANAGE
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
