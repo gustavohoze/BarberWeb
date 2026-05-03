@@ -124,7 +124,9 @@ func displayTimeFromKey(value string) string {
 
 func blocksAvailability(status string) bool {
 	normalized := strings.ToLower(strings.TrimSpace(status))
-	return normalized == "confirmed" || normalized == "completed"
+	// pending, confirmed, and completed all block availability
+	// only cancelled bookings don't block
+	return normalized != "cancelled"
 }
 
 func sameBarber(left string, right string) bool {
@@ -473,6 +475,46 @@ func handleAssignBarber(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(booking)
 }
 
+// handleCancelBooking cancels a pending booking
+func handleCancelBooking(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		sendJSONError(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	bookingID := r.URL.Query().Get("id")
+	if strings.TrimSpace(bookingID) == "" {
+		sendJSONError(w, "Missing booking id", http.StatusBadRequest)
+		return
+	}
+
+	booking, err := GetBookingByID(bookingID)
+	if err != nil {
+		sendJSONError(w, "Booking not found", http.StatusNotFound)
+		return
+	}
+
+	// Only allow cancelling pending bookings
+	if strings.ToLower(strings.TrimSpace(booking.Status)) != "pending" {
+		sendJSONError(w, "Only pending bookings can be cancelled", http.StatusConflict)
+		return
+	}
+
+	if err := UpdateBookingStatus(bookingID, "cancelled"); err != nil {
+		sendJSONError(w, "Failed to cancel booking", http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("✓ Booking cancelled: %s for %s on %s at %s",
+		booking.Service, booking.CustomerName, booking.Date, booking.Time)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "Booking cancelled successfully",
+		"id":      bookingID,
+	})
+}
+
 // handleHealthCheck is a simple health check endpoint
 func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -510,6 +552,7 @@ func main() {
 	mux.HandleFunc("/api/login", handleLogin)
 	mux.HandleFunc("/api/bookings/create", handleCreateBooking)
 	mux.HandleFunc("/api/bookings/availability", handleGetAvailability)
+	mux.HandleFunc("/api/bookings/cancel", handleCancelBooking)
 
 	// Stripe endpoints
 	mux.HandleFunc("/api/bookings/create-session", handleCreateCheckoutSession)

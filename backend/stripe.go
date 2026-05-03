@@ -106,6 +106,28 @@ func handleCreateCheckoutSession(w http.ResponseWriter, r *http.Request) {
 		origin = "http://localhost:5174" // Fallback
 	}
 
+	// Create a pending booking immediately to reserve the slot
+	// This prevents race conditions where two users can book the same slot
+	pendingBooking := &Booking{
+		CustomerName:  req.CustomerName,
+		CustomerEmail: req.CustomerEmail,
+		CustomerPhone: req.CustomerPhone,
+		Service:       req.ServiceID,
+		Barber:        req.Barber,
+		Date:          req.Date,
+		Time:          req.Time,
+		Status:        "pending",
+	}
+
+	if err := CreateBooking(pendingBooking); err != nil {
+		log.Printf("  Error creating pending booking: %v", err)
+		sendJSONError(w, "Failed to reserve slot", http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("✓ Pending booking created: %s for %s on %s at %s", 
+		req.ServiceName, req.CustomerName, req.Date, req.Time)
+
 	// Build Checkout Session params
 	params := &stripe.CheckoutSessionParams{
 		CustomerEmail: stripe.String(req.CustomerEmail),
@@ -137,6 +159,7 @@ func handleCreateCheckoutSession(w http.ResponseWriter, r *http.Request) {
 			"barber":        req.Barber,
 			"date":          req.Date,
 			"time":          req.Time,
+			"bookingID":     pendingBooking.ID,
 		},
 	}
 
@@ -202,28 +225,51 @@ func handleStripeWebhook(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Build the booking record from the session metadata
-		booking := &Booking{
-			ID:            s.ID,
-			CustomerName:  s.Metadata["customerName"],
-			CustomerEmail: s.CustomerEmail,
-			CustomerPhone: s.Metadata["customerPhone"],
-			Service:       s.Metadata["service"],
-			Barber:        s.Metadata["barber"],
-			Date:          s.Metadata["date"],
-			Time:          s.Metadata["time"],
-			Status:        "confirmed",
+		bookingID := s.Metadata["bookingID"]
+		if bookingID == "" {
+			log.Printf("Webhook: missing bookingID in metadata")
+			w.WriteHeader(http.StatusOK)
+			return
 		}
 
-		if err := CreateBooking(booking); err != nil {
-			log.Printf("Webhook: failed to create booking: %v", err)
+		// Update the pending booking to confirmed
+		if err := UpdateBookingStatus(bookingID, "confirmed"); err != nil {
+			log.Printf("Webhook: failed to confirm booking: %v", err)
 			// Still return 200 to Stripe so it doesn't retry
 			w.WriteHeader(http.StatusOK)
 			return
 		}
 
 		log.Printf("✓ Booking confirmed via Stripe: %s for %s on %s at %s",
-			booking.Service, booking.CustomerName, booking.Date, booking.Time)
+			s.Metadata["service"], s.Metadata["customerName"], s.Metadata["date"], s.Metadata["time"])
+	}
+
+	// Handle checkout.session.expired to cancel pending booking
+	if event.Type == "checkout.session.expired" {
+		var s stripe.CheckoutSession
+		if err := json.Unmarshal(event.Data.Raw, &s); err != nil {
+			log.Printf("Webhook: failed to parse session for expiry: %v", err)
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		bookingID := s.Metadata["bookingID"]
+		if bookingID == "" {
+			log.Printf("Webhook: missing bookingID in expired session")
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		// Cancel the pending booking
+		if err := UpdateBookingStatus(bookingID, "cancelled"); err != nil {
+			log.Printf("Webhook: failed to cancel expired booking: %v", err)
+			// Still return 200 to Stripe so it doesn't retry
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		log.Printf("✓ Pending booking cancelled due to checkout expiry: %s for %s on %s at %s",
+			s.Metadata["service"], s.Metadata["customerName"], s.Metadata["date"], s.Metadata["time"])
 	}
 
 	w.WriteHeader(http.StatusOK)
