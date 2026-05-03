@@ -2,6 +2,7 @@ import type { FormEvent } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { adminStaff, toISODate } from '../lib/adminData';
+import { apiUrl } from '../lib/api';
 
 interface AvailabilityResponse {
   available: boolean;
@@ -76,7 +77,7 @@ export const Booking = () => {
           date,
           barber: selectedBarberData.name,
         });
-        const response = await fetch(`http://localhost:8080/api/bookings/availability?${params.toString()}`);
+        const response = await fetch(`${apiUrl('/api/bookings/availability')}?${params.toString()}`);
 
         if (!response.ok) {
           throw new Error('Availability check is temporarily unavailable.');
@@ -142,7 +143,7 @@ export const Booking = () => {
 
     try {
       // Create a Stripe Checkout Session via the backend
-      const response = await fetch('http://localhost:8080/api/bookings/create-session', {
+      const response = await fetch(apiUrl('/api/bookings/create-session'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

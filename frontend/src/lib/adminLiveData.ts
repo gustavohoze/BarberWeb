@@ -1,6 +1,5 @@
 import { formatCurrency, getServiceMeta, type AdminBooking, type AdminCustomer } from './adminData';
-
-const API_BASE = 'http://localhost:8080';
+import { apiUrl } from './api';
 
 const tokenHeaders = () => ({
   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -8,7 +7,7 @@ const tokenHeaders = () => ({
 });
 
 export const fetchAdminBookings = async (): Promise<AdminBooking[]> => {
-  const response = await fetch(`${API_BASE}/api/bookings`, {
+  const response = await fetch(apiUrl('/api/bookings'), {
     headers: tokenHeaders(),
   });
 

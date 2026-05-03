@@ -1,6 +1,7 @@
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../lib/api';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ export const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch(apiUrl('/api/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

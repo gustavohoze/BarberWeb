@@ -11,6 +11,7 @@ import {
   toISODate,
   type AdminBooking,
 } from '../lib/adminData';
+import { apiUrl } from '../lib/api';
 
 const tokenHeaders = () => ({
   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -33,7 +34,7 @@ export const AdminDashboard = () => {
 
     const fetchBookings = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/bookings', {
+        const response = await fetch(apiUrl('/api/bookings'), {
           headers: tokenHeaders(),
         });
 
@@ -113,7 +114,7 @@ export const AdminDashboard = () => {
     setNotice('');
 
     try {
-      const response = await fetch('http://localhost:8080/api/bookings/assign-barber', {
+      const response = await fetch(apiUrl('/api/bookings/assign-barber'), {
         method: 'PATCH',
         headers: tokenHeaders(),
         body: JSON.stringify({ id: booking.id, barber }),
