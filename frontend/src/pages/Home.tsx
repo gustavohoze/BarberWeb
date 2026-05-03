@@ -128,7 +128,7 @@ export const Home = () => {
               </p>
             </div>
             <div className="flex-grow grid grid-cols-2 md:grid-cols-3 gap-12 border-l border-surface-variant pl-12">
-              {stats.slice(0, 3).map((stat, i) => (
+              {stats.slice(0, 3).map((stat) => (
                 <div key={stat.label} className="animate-fade-in-up">
                   <div className="text-4xl md:text-5xl font-serif font-bold text-on-background mb-2">
                     {stat.number}
@@ -273,7 +273,7 @@ export const Home = () => {
 
           {/* Service Menu Style */}
           <div className="max-w-3xl mx-auto space-y-12">
-            {featuredServices.map((service, i) => (
+            {featuredServices.map((service) => (
               <div
                 key={service.name}
                 className="group animate-fade-in-up"

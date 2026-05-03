@@ -103,7 +103,11 @@ export const deriveCustomersFromBookings = (bookings: AdminBooking[]): AdminCust
   }
 
   return [...customers.values()]
-    .map(({ serviceCounts, ...customer }) => customer)
+    .map((c) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { serviceCounts, ...customer } = c;
+      return customer;
+    })
     .sort((left, right) => right.totalSpend - left.totalSpend || right.visits - left.visits);
 };
 
