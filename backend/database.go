@@ -145,21 +145,21 @@ func GetAllBookings() ([]Booking, error) {
 	}
 
 	var bookings []Booking
-	for _, b := range rawBookings {
-		createdAt, _ := time.Parse(time.RFC3339, getString(b, "created_at"))
-		bookings = append(bookings, Booking{
-			ID:            getString(b, "id"),
-			CustomerName:  getString(b, "customer_name"),
-			CustomerEmail: getString(b, "customer_email"),
-			CustomerPhone: getString(b, "customer_phone"),
-			Service:       getString(b, "service"),
-			Barber:        getString(b, "barber"),
-			Date:          getString(b, "booking_date"),
-			Time:          getString(b, "booking_time"),
-			Status:        getString(b, "status"),
-			CreatedAt:     createdAt,
-		})
-	}
+		for _, b := range rawBookings {
+			createdAt, _ := time.Parse(time.RFC3339, getString(b, "created_at"))
+			bookings = append(bookings, Booking{
+				ID:            getString(b, "id"),
+				CustomerName:  getString(b, "customer_name"),
+				CustomerEmail: getString(b, "customer_email"),
+				CustomerPhone: getString(b, "customer_phone"),
+				Service:       getString(b, "service"),
+				Barber:        getString(b, "barber"),
+				Date:          getString(b, "booking_date"),
+				Time:          getString(b, "booking_time"),
+				Status:        getString(b, "status"),
+				CreatedAt:     createdAt,
+			})
+		}
 	return bookings, nil
 }
 

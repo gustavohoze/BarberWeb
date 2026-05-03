@@ -103,7 +103,7 @@ func normalizeTimeKey(value string) string {
 		return ""
 	}
 
-	layouts := []string{"3:04 PM", "03:04 PM", "3 PM", "03 PM", "15:04", "15:04:05"}
+	layouts := []string{"3:04 PM", "03:04 PM", "3 PM", "03 PM", "15:04", "15:04:05", "3:04 AM", "03:04 AM"}
 	for _, layout := range layouts {
 		parsed, err := time.Parse(layout, strings.ToUpper(cleaned))
 		if err == nil {
