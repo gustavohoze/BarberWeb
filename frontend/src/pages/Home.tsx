@@ -52,11 +52,23 @@ const testimonials = [
   },
 ];
 
+const buildUnsplashUrl = (baseUrl: string, width: number, quality = 80) =>
+  `${baseUrl}?auto=format&fit=crop&w=${width}&q=${quality}`;
+
+const buildUnsplashSrcSet = (baseUrl: string) =>
+  [
+    `${buildUnsplashUrl(baseUrl, 320, 70)} 320w`,
+    `${buildUnsplashUrl(baseUrl, 480, 72)} 480w`,
+    `${buildUnsplashUrl(baseUrl, 640, 75)} 640w`,
+    `${buildUnsplashUrl(baseUrl, 800, 80)} 800w`,
+    `${buildUnsplashUrl(baseUrl, 960, 80)} 960w`,
+  ].join(', ');
+
 const masterBarbers = [
-  { name: 'Arthur Stone', years: '22 Years', specialty: 'Razor Shave Master', philosophy: 'The blade never lies.', image: 'https://images.unsplash.com/photo-1503460293376-303bbac90831?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Marcus Vance', years: '15 Years', specialty: 'Skin Fade Artisan', philosophy: 'Precision over speed.', image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Elias Thorne', years: '12 Years', specialty: 'Classic Scissor Work', philosophy: 'Style is in the details.', image: 'https://images.unsplash.com/photo-1622286332618-f2803b114283?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Julian Reed', years: '8 Years', specialty: 'Beard Sculpting', philosophy: 'A beard is a man\'s signature.', image: 'https://images.unsplash.com/photo-1599305090598-fe175d2f6220?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Arthur Stone', years: '22 Years', specialty: 'Razor Shave Master', philosophy: 'The blade never lies.', imageBase: 'https://images.unsplash.com/photo-1503460293376-303bbac90831' },
+  { name: 'Marcus Vance', years: '15 Years', specialty: 'Skin Fade Artisan', philosophy: 'Precision over speed.', imageBase: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033' },
+  { name: 'Elias Thorne', years: '12 Years', specialty: 'Classic Scissor Work', philosophy: 'Style is in the details.', imageBase: 'https://images.unsplash.com/photo-1622286332618-f2803b114283' },
+  { name: 'Julian Reed', years: '8 Years', specialty: 'Beard Sculpting', philosophy: 'A beard is a man\'s signature.', imageBase: 'https://images.unsplash.com/photo-1599305090598-fe175d2f6220' },
 ];
 
 export const Home = () => {
@@ -70,7 +82,12 @@ export const Home = () => {
           <img
             alt="Master Barber at work"
             className="w-full h-full object-cover"
+            decoding="async"
+            fetchpriority="high"
+            loading="eager"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuByg6-jn3Jw4dFB2z9I8nCUJnYjNXi1XBtPgYcRNEnraXOTY3W5KC3mN0Ms5fc9R-BJ2GMSNmITBpmMIayv0A60GpPLuHaO6QQsgw4HjIfhmO0ajrn5rwSFjd-I9tSLo1YAEoOF8JVmBfa0l_ZgI23ztymLnw6Hm3CDS0fg2DXY7jc79CG6pw-zZelMJYE36vLh9FO_qbOZTMnb0LftzwforOAI_x66DH-aeT7hyTROAIJUu2bmaA0HCPaQXKMoO-BJPBRGkM4t41_P"
+            width="1920"
+            height="1080"
           />
           {/* Multi-layer gradient for drama */}
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
@@ -170,9 +187,15 @@ export const Home = () => {
               >
                 {/* Image Layer */}
                 <img 
-                  src={barber.image} 
+                  src={buildUnsplashUrl(barber.imageBase, 800)}
+                  srcSet={buildUnsplashSrcSet(barber.imageBase)}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   alt={barber.name} 
                   className="w-full h-full object-cover filter grayscale contrast-125 brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-[1200ms] ease-out-expo"
+                  decoding="async"
+                  loading="lazy"
+                  width="600"
+                  height="800"
                 />
                 
                 {/* Cinematic Overlay */}
@@ -244,7 +267,11 @@ export const Home = () => {
               <img
                 alt="Barber Tools"
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
+                decoding="async"
+                loading="lazy"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8_rrc4D0Ice2lIiQWTiPT5br9y7W32iMW9bmVwas2JdDPD-6aL_kkTwsy9XXY2sgkFFOjrCGmSUpMrKHxbCN5SRiw-B0vtwuKeE7_cO24b6_tbs5aHtzaVm8P8ImPsMs-NT0RLp89xDtPHVkD4n8kiiT2tkvfQL0BWDNmk5h55G8mSA0wQj9cCrhLNxLiuBXXAboRxZ4WQqqo3TXeMneJRI0bTRchkJJKSa1m0WKPAwfhl7FtP9-JhFS_HmWI9t2NSMp-U-jO26Xt"
+                width="800"
+                height="1000"
               />
             </div>
             {/* Decorative frame */}

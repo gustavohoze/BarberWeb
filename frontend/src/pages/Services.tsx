@@ -33,7 +33,10 @@ export const Services = () => {
           <img
             alt="Barbershop tools"
             className="w-full h-full object-cover"
+            decoding="async"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvFNR-hoeCFE0d81GvDQLhFu9Udko-KayUvZuDiZ7meYPVhH2Z4SxcH3EnuaSDwzkeY5xeBcFjLHOGB6Q3-FwQ2WGjWcCZGt-r8r9Zhc3gkl4TYfvi9-YFXxDkGVwUZdiqkV9UamU2U3R_T9FmreyoiASPm7PpAgXg4NOjCgekp3stCpqWjMgdkDiKlA62C-U19q2RqzfA6D73NIJpLEfA3raTLeXytncjMvX75Z9YZs4zKmImSUhEAvzw0FOSRtiS8wC1XM3iFJA9"
+            width="1600"
+            height="900"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/40" />
         </div>

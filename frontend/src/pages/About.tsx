@@ -58,7 +58,10 @@ export const About = () => {
               <img
                 alt="Barbershop Interior"
                 className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
+                decoding="async"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk46t-xfrS07uzEBJJutPRCCZtBAzxll1Aqj_nNV9fjWDqtXr6vkKk5MYAv-xSqFaIW4Uy04sJsT3hxUk8xuiIMiPj6waaViB3505_T_50M6OReLgA5DnA2Pmx6VJQBDiEbPyNao_FHB4_QUBLATWAmGw3oRoE0qfjpYHPaXpJch9nd-CB-Y7HpxoBe31n96b1lHFfDZaxKjgZpLgOHPfcgTFXaluF9MByARmAh_T7rRZk_JG_UNxzqjKA_XMbST0CQGxfym-daem7"
+                width="900"
+                height="900"
               />
             </div>
             <div className="absolute -bottom-4 -right-4 w-2/3 h-2/3 border border-primary/20 rounded-sm -z-10 hidden lg:block" />
@@ -132,7 +135,11 @@ export const About = () => {
                 <img
                   alt={master.name}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                  decoding="async"
+                  loading="lazy"
                   src={master.img}
+                  width="600"
+                  height="600"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
