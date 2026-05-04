@@ -83,7 +83,7 @@ export const Home = () => {
             alt="Master Barber at work"
             className="w-full h-full object-cover"
             decoding="async"
-            fetchpriority="high"
+            fetchPriority="high"
             loading="eager"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuByg6-jn3Jw4dFB2z9I8nCUJnYjNXi1XBtPgYcRNEnraXOTY3W5KC3mN0Ms5fc9R-BJ2GMSNmITBpmMIayv0A60GpPLuHaO6QQsgw4HjIfhmO0ajrn5rwSFjd-I9tSLo1YAEoOF8JVmBfa0l_ZgI23ztymLnw6Hm3CDS0fg2DXY7jc79CG6pw-zZelMJYE36vLh9FO_qbOZTMnb0LftzwforOAI_x66DH-aeT7hyTROAIJUu2bmaA0HCPaQXKMoO-BJPBRGkM4t41_P"
             width="1920"
